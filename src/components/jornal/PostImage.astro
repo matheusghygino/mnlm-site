@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const { image, caption, credit, align } = Astro.props as {
+  image: ImageMetadata;
+  caption?: string;
+  credit?: string;
+  align: "center" | "left" | "right";
+};
+
+const figureClass =
+  align === "left"
+    ? "not-prose my-10 md:float-left md:mr-8 md:w-[340px]"
+    : align === "right"
+      ? "not-prose my-10 md:float-right md:ml-8 md:w-[340px]"
+      : "not-prose my-10 clear-both mx-auto max-w-[780px]";
+
+const sizes =
+  align === "center"
+    ? "(max-width: 768px) 100vw, 780px"
+    : "(max-width: 768px) 100vw, 340px";
+---
+
+<figure class={figureClass}>
+  <div class="overflow-hidden rounded-xl shadow-sm">
+    <Image
+      src={image}
+      alt={caption ?? ""}
+      widths={[400, 800, 1200]}
+      sizes={sizes}
+      format="webp"
+      quality={75}
+      class="h-auto w-full"
+      loading="lazy"
+    />
+  </div>
+
+  {(caption || credit) && (
+    <figcaption class="mt-3 text-center text-xs italic text-text-secondary">
+      {caption}
+      {credit && <span> — {credit}</span>}
+    </figcaption>
+  )}
+</figure>

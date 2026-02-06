@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import heroImg from "@/assets/about/hero.jpeg"; // ajuste o path
+---
+
+<section class="relative mx-auto max-w-6xl overflow-hidden rounded-2xl mt-12">
+  <Image
+    src={heroImg}
+    alt="MNLM em mobilização"
+    class="h-[420px] w-full object-cover"
+    loading="eager"
+  />
+
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
+    <h1 class="font-display text-4xl font-extrabold md:text-5xl">
+      SOBRE NÓS
+    </h1>
+
+    <p class="mt-4 max-w-3xl text-lg leading-relaxed">
+      Conheça o Movimento Nacional de Luta pela Moradia, nossa história,
+      nossos valores e nossa luta pelo direito à moradia digna em todo o Brasil.
+    </p>
+  </div>
+</section>

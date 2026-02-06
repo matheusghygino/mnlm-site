@@ -1,0 +1,152 @@
+---
+const action = import.meta.env.PUBLIC_N8N_CONTACT_WEBHOOK ?? "#";
+
+const estados = [
+  { v: "", n: "Selecione seu estado" },
+  { v: "AC", n: "Acre" },
+  { v: "AL", n: "Alagoas" },
+  { v: "AP", n: "Amapá" },
+  { v: "AM", n: "Amazonas" },
+  { v: "BA", n: "Bahia" },
+  { v: "CE", n: "Ceará" },
+  { v: "DF", n: "Distrito Federal" },
+  { v: "ES", n: "Espírito Santo" },
+  { v: "GO", n: "Goiás" },
+  { v: "MA", n: "Maranhão" },
+  { v: "MT", n: "Mato Grosso" },
+  { v: "MS", n: "Mato Grosso do Sul" },
+  { v: "MG", n: "Minas Gerais" },
+  { v: "PA", n: "Pará" },
+  { v: "PB", n: "Paraíba" },
+  { v: "PR", n: "Paraná" },
+  { v: "PE", n: "Pernambuco" },
+  { v: "PI", n: "Piauí" },
+  { v: "RJ", n: "Rio de Janeiro" },
+  { v: "RN", n: "Rio Grande do Norte" },
+  { v: "RS", n: "Rio Grande do Sul" },
+  { v: "RO", n: "Rondônia" },
+  { v: "RR", n: "Roraima" },
+  { v: "SC", n: "Santa Catarina" },
+  { v: "SP", n: "São Paulo" },
+  { v: "SE", n: "Sergipe" },
+  { v: "TO", n: "Tocantins" },
+];
+
+const assuntos = [
+  { v: "", n: "Selecione o assunto" },
+  { v: "informacao", n: "Informações sobre o MNLM" },
+  { v: "participar", n: "Quero participar do movimento" },
+  { v: "denuncia", n: "Denúncia/Problema com moradia" },
+  { v: "apoio", n: "Solicitar apoio jurídico" },
+  { v: "parceria", n: "Proposta de parceria" },
+  { v: "imprensa", n: "Contato da imprensa" },
+  { v: "outro", n: "Outro assunto" },
+];
+---
+
+<section class="w-full rounded-2xl bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.08)] md:w-1/2">
+  <header class="text-center">
+    <h2 class="text-2xl font-extrabold uppercase tracking-wide text-gray-900">
+      ENVIE UMA MENSAGEM
+    </h2>
+    <div class="mx-auto mt-3 h-1 w-16 rounded-full bg-red-700"></div>
+  </header>
+
+  <form class="mt-10 space-y-6" method="POST" action={action} novalidate>
+    <!-- Honeypot -->
+    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+    <!-- Timestamp -->
+    <input type="hidden" name="t0" id="contact_t0" value="" />
+
+    <div>
+      <label for="name" class="block text-sm font-bold text-gray-900">Seu Nome *</label>
+      <input
+        id="name"
+        name="name"
+        required
+        class="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-bold text-gray-900">Seu E-mail *</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      />
+    </div>
+
+    <div>
+      <label for="phone" class="block text-sm font-bold text-gray-900">Seu Telefone</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        class="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      />
+    </div>
+
+    <div>
+      <label for="state" class="block text-sm font-bold text-gray-900">Estado</label>
+      <select
+        id="state"
+        name="state"
+        class="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      >
+        {estados.map((uf, i) => (
+          <option value={uf.v} disabled={i === 0} selected={i === 0}>
+            {uf.n}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label for="subject" class="block text-sm font-bold text-gray-900">Assunto *</label>
+      <select
+        id="subject"
+        name="subject"
+        required
+        class="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      >
+        {assuntos.map((a, i) => (
+          <option value={a.v} disabled={i === 0} selected={i === 0}>
+            {a.n}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label for="message" class="block text-sm font-bold text-gray-900">Sua Mensagem *</label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows={6}
+        class="mt-2 w-full resize-none rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none
+               focus:border-red-700 focus:ring-2 focus:ring-red-100"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="mt-2 w-full rounded-md bg-red-700 px-6 py-4 text-sm font-extrabold uppercase tracking-widest text-white shadow-lg transition hover:bg-red-800"
+    >
+      ENVIAR MENSAGEM
+    </button>
+  </form>
+
+  <script is:inline>
+    const t0 = document.getElementById("contact_t0");
+    if (t0) t0.value = String(Date.now());
+  </script>
+</section>

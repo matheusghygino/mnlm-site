@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JornalTabs from "../../components/jornal/JornalTabs";
+import { getPosts } from "../../lib/jornal/getPosts";
+import { authorsMock } from "../../lib/jornal/authors.mock";
+import { printedEditionsMock } from "../../lib/jornal/prints.mock";
+import JornalTabsWithHash from "@/components/jornal/JornalTabsWithHash";
+
+const posts = await getPosts();
+---
+
+<BaseLayout title="Jornal | MNLM">
+  <main class="bg-bg py-16">
+    <div class="mx-auto max-w-6xl px-4 text-center">
+      <h1 class="text-5xl font-extrabold">O MOVIMENTO NÃO PARA!</h1>
+      <p class="mt-4 text-text-secondary">
+        Análises aprofundadas e atualizações rápidas.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <JornalTabsWithHash
+        client:load
+        posts={posts}
+        authors={authorsMock}
+        printedEditions={printedEditionsMock}
+      />
+    </div>
+  </main>
+</BaseLayout>

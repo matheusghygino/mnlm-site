@@ -1,0 +1,26 @@
+---
+import HomeMedias from "@/components/midia/HomeMedias.jsx";
+import { getLatestMedias } from "@/lib/midias/media";
+
+const medias = await getLatestMedias(3);
+---
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-6">
+    <h2 class="mb-8 text-2xl font-extrabold uppercase">
+      Últimas Mídias
+    </h2>
+
+    <HomeMedias medias={medias} client:load />
+
+    <!-- CTA -->
+    <div class="mt-10">
+      <a
+        href="/midias"
+        class="font-bold uppercase text-red-700 hover:underline"
+      >
+        Ver mais →
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+---
+import type { ContentBlock } from "../../lib/jornal/types";
+import PostImage from "./PostImage.astro";
+import { marked } from "marked";
+
+marked.setOptions({
+  breaks: true,
+});
+
+const { content, variant } = Astro.props as {
+  content: ContentBlock[];
+  variant: "tribuna" | "boletim";
+};
+
+const accent =
+  variant === "boletim"
+    ? "#0066CC"
+    : "var(--color-primary)";
+---
+
+<section class="mt-10 rounded-2xl bg-card-bg">
+  {content.map((block) => {
+    switch (block.type) {
+
+      case "paragraph":
+        return (
+          <p
+            class="mb-6 text-base leading-relaxed text-justify prose prose-neutral max-w-none"
+            set:html={marked.parse(block.text)}
+          />
+        );
+
+      case "heading":
+        return (
+          <div class="my-12">
+            <div class="mb-6 h-px w-full border border-border"></div>
+            <h2 class="text-2xl font-extrabold leading-snug">
+              {block.text}
+            </h2>
+          </div>
+        );
+
+      case "highlight":
+        return (
+          <blockquote
+            class="my-8 rounded-lg bg-neutral-100 p-6 italic text-muted"
+            style={`border-left: 4px solid ${accent};`}
+          >
+            {block.title && (
+              <strong class="block mb-2 not-italic">
+                {block.title}
+              </strong>
+            )}
+
+            <div
+              class="text-text-secondary leading-relaxed prose prose-neutral max-w-none"
+              set:html={marked.parse(block.text)}
+            />
+          </blockquote>
+        );
+
+      case "image":
+        return <PostImage {...block} />;
+    }
+  })}
+</section>

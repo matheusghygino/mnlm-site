@@ -1,0 +1,50 @@
+---
+const cards = [
+  {
+    title: "MISSÃO",
+    text:
+      "O Movimento Nacional de Luta pela Moradia (MNLM) tem como Missão a organização popular, assim como apoiar e articular nacionalmente populações sem garantia de direito à cidade, estimulando a unificação de suas lutas, pela conquista de uma política habitacional de interesse social com reforma urbana que garanta o fim da propriedade privada, o respeito aos territórios consolidados, às culturas e identidades de populações originárias, a universalização dos direitos sociais – direito à moradia, à saúde, ao transporte/mobilidade, à educação, ao lazer, ao saneamento básico ambiental, à preservação do meio ambiente, trabalho digno, participação popular e controle social.",
+    icon: "target",
+  },
+  {
+    title: "VISÃO",
+    text:
+      "Continuar sendo referência política na luta pela reforma urbana, tendo a mobilização popular, a ocupação, o trabalho de base e o enfrentamento institucional como elementos fundamentais.",
+    icon: "eye",
+  },
+  {
+    title: "NOSSOS VALORES",
+    text:
+      "Autonomia, democracia interna, solidariedade de classe, formação política permanente, defesa intransigente dos direitos humanos, combate a toda forma de discriminação e opressão, e compromisso com a transformação social radical rumo ao socialismo.",
+    icon: "handshake",
+  },
+];
+
+const Icon = (name: string) => {
+  if (name === "eye")
+    return `<svg viewBox="0 0 24 24" class="h-10 w-10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  if (name === "handshake")
+    return `<svg viewBox="0 0 24 24" class="h-10 w-10" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 12l3 3a2 2 0 0 0 3 0l5-5"/><path d="M17 7l2 2"/><path d="M3 9l4-4 4 4"/><path d="M21 9l-4-4-4 4"/></svg>`;
+  return `<svg viewBox="0 0 24 24" class="h-10 w-10" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>`;
+};
+---
+
+<section class="bg-bg py-16">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="grid gap-8 md:grid-cols-3">
+      {cards.map((c) => (
+        <article class="rounded-xl border border-[var(--color-border)] bg-white p-10 text-center shadow-[0_12px_28px_rgba(0,0,0,0.10)]">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center text-[var(--color-primary)]">
+            <Fragment set:html={Icon(c.icon)} />
+          </div>
+          <h3 class="mt-6 text-lg font-extrabold uppercase text-[var(--color-fg)]">
+            {c.title}
+          </h3>
+          <p class="mt-6 text-sm leading-relaxed text-[var(--color-muted)] md:text-base">
+            {c.text}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+<button
+  id="scrollTopBtn"
+  aria-label="Voltar ao topo"
+  class="fixed bottom-6 right-6 z-40
+         h-14 w-14
+         opacity-0 pointer-events-none
+         transition-opacity duration-300
+         hover:scale-105"
+>
+  <!-- SVG PROGRESS (ANEL) -->
+  <svg
+    class="absolute inset-0 z-0 h-full w-full -rotate-90"
+    viewBox="0 0 100 100"
+  >
+    <!-- trilha -->
+    <circle
+      cx="50"
+      cy="50"
+      r="46"
+      fill="none"
+      stroke="var(--color-border)"
+      stroke-width="6"
+    />
+
+    <!-- progresso -->
+    <circle
+      id="scrollProgress"
+      cx="50"
+      cy="50"
+      r="46"
+      fill="none"
+      stroke="var(--color-primary)"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-dasharray="289"
+      stroke-dashoffset="289"
+    />
+  </svg>
+
+  <!-- BOTÃO (MIolo menor, NÃO cobre o SVG) -->
+  <div
+    class="relative z-10 mx-auto my-auto
+           flex h-11 w-11 items-center justify-center
+           rounded-full bg-[var(--color-primary)]
+           shadow-lg"
+  >
+    <svg
+      class="h-6 w-6 text-white"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M5 15l7-7 7 7"
+      />
+    </svg>
+  </div>
+</button>
+
+<script>
+  const btn = document.getElementById("scrollTopBtn");
+  const progress = document.getElementById("scrollProgress");
+
+  const radius = 46;
+  const circumference = 2 * Math.PI * radius;
+
+  progress.style.strokeDasharray = circumference;
+  progress.style.strokeDashoffset = circumference;
+
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    const percent = docHeight > 0 ? scrollTop / docHeight : 0;
+    const offset = circumference - percent * circumference;
+
+    progress.style.strokeDashoffset = offset;
+
+    if (scrollTop > 200) {
+      btn.classList.remove("opacity-0", "pointer-events-none");
+    } else {
+      btn.classList.add("opacity-0", "pointer-events-none");
+    }
+  }
+
+  window.addEventListener("scroll", updateScrollProgress);
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  updateScrollProgress();
+</script>

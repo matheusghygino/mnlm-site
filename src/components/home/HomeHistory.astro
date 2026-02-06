@@ -1,0 +1,155 @@
+---
+import { Image } from "astro:assets";
+import historyImage from "../../assets/history-mnlm.jpeg";
+---
+
+<section class="px-4 py-20">
+  <div class="mx-auto max-w-6xl bg-[#f9f9f9] px-6 py-6 rounded-2xl">
+
+    <!-- TÍTULO -->
+    <div class="mb-10 text-center">
+      <h2 class="font-display text-2xl font-extrabold md:text-3xl">
+        NOSSA HISTÓRIA
+      </h2>
+      <div class="mx-auto mt-3 h-1 w-14 bg-primary"></div>
+    </div>
+
+    <!-- IMAGEM -->
+    <div class="overflow-hidden rounded-xl shadow-md">
+      <Image
+        src={historyImage}
+        alt="Mobilização histórica do MNLM"
+        class="h-[300px] w-full object-cover md:h-[420px]"
+        sizes="100vw"
+      />
+    </div>
+
+    <!-- SUBTÍTULO -->
+    <h3
+      class="relative mt-10 mb-6 pl-4 font-display text-lg font-bold text-primary"
+    >
+      <span class="absolute left-0 top-0 h-full w-1 bg-primary"></span>
+      A História da luta urbana no Brasil e o protagonismo do MNLM
+    </h3>
+
+    <!-- TEXTO PRINCIPAL -->
+    <div class="space-y-5 text-sm leading-relaxed text-fg">
+      <p>
+        A história da política urbana no Brasil é, antes de tudo, a história da
+        luta por dignidade nas cidades. Desde meados do século XX, as grandes
+        metrópoles brasileiras cresceram de forma desigual e excludente. O
+        acelerado processo de urbanização, impulsionado pelo êxodo rural e pela
+        industrialização, produziu uma massa de trabalhadores que construía a
+        cidade sem encontrar nela espaço para viver dignamente.
+      </p>
+
+      <p>
+        Sob esse cenário, nos anos 1960, ainda no governo de João Goulart,
+        germinaram as primeiras sementes da chamada Reforma Urbana; projeto
+        político e social que defendia a função social da propriedade, o controle
+        da especulação imobiliária e o direito coletivo à cidade. Contudo, o golpe
+        de 1964 interrompeu essas tentativas: o regime autoritário criminalizou a
+        mobilização urbana e congelou as políticas voltadas aos pobres.
+      </p>
+
+      <p>
+        Somente nos anos 1980, com o processo de redemocratização, o Brasil urbano
+        voltou a ferver. As Comunidades Eclesiais de Base (CEBs), inspiradas pela
+        Teologia da Libertação, foram decisivas para rearticular a solidariedade
+        popular e recolocar a cidade no centro da agenda política. Em diversas
+        capitais e regiões metropolitanas, surgiram mutirões, ocupações e
+        associações comunitárias que transformaram a moradia em símbolo de
+        resistência.
+      </p>
+
+      <p>
+        Em 1984, surge a Articulação Nacional do Solo Urbano (ANSUR), e logo depois
+        o Movimento Nacional pela Reforma Urbana (MNRU), que uniu organizações
+        como CMP, CONAM, ONGs, universidades e novos movimentos de moradia. Muitos
+        dos militantes de diversas regiões do País, que mais tarde fundariam o
+        Movimento Nacional de Luta pela Moradia (MNLM), já participavam ativamente
+        dessas discussões.
+      </p>
+    </div>
+
+    <!-- LINHA DO TEMPO -->
+    <div class="mt-10 space-y-6">
+      <div class="flex gap-4">
+        <span class="mt-2 h-2 w-2 rounded-full bg-primary"></span>
+        <div>
+          <strong>1990 – Fundação do MNLM</strong>
+          <p class="text-sm text-muted">
+            Nasce em Goiânia o Movimento Nacional de Luta pela Moradia (MNLM),
+            assumindo como horizonte o projeto da Reforma Urbana e o direito de
+            morar como direito político, coletivo e inegociável.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <span class="mt-2 h-2 w-2 rounded-full bg-primary"></span>
+        <div>
+          <strong>2001 – Estatuto da Cidade</strong>
+          <p class="text-sm text-muted">
+            Após mais de uma década de mobilização, é aprovado o Estatuto da
+            Cidade, representando a tradução legal da utopia da Reforma Urbana.
+            O MNLM foi um dos principais protagonistas desse processo.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <span class="mt-2 h-2 w-2 rounded-full bg-primary"></span>
+        <div>
+          <strong>2005 – FNHIS</strong>
+          <p class="text-sm text-muted">
+            Criação do Sistema e do Fundo Nacional de Habitação de Interesse
+            Social (SNHIS e FNHIS), resultado direto da proposta de iniciativa
+            popular apresentada ainda em 1991.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <span class="mt-2 h-2 w-2 rounded-full bg-primary"></span>
+        <div>
+          <strong>2009 – Minha Casa Minha Vida – Entidades</strong>
+          <p class="text-sm text-muted">
+            Consolidação da autogestão habitacional como política pública de
+            Estado. O MNLM foi protagonista dessa virada histórica.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEXTO FINAL -->
+    <div class="mt-10 space-y-5 text-sm leading-relaxed text-fg">
+      <p>
+        Mais de trinta anos depois da sua fundação, o MNLM permanece como herdeiro
+        direto das lutas que transformaram a política urbana em campo de disputa
+        popular. Sua trajetória reflete a passagem da utopia à prática, das
+        barracas às conferências nacionais, dos acampamentos à lei. É uma história
+        coletiva, feita de vozes, de gestos, de chão e de sonhos!
+      </p>
+
+      <p>
+        Após um período de quase três décadas de lutas que culminaram em avanços
+        significativos, o MNLM e o conjunto de organizações populares se depararam
+        com o golpe de Estado de 2016 que derrubou o governo democrático-popular.
+        Os governos golpistas anularam diversos contratos do Programa Minha Casa,
+        Minha Vida, inviabilizando inúmeros projetos de habitação de interesse
+        social e resultando em um gigantesco aumento do déficit habitacional.
+      </p>
+
+      <p>
+        Nesse período que durou sete anos, privatizações de empresas públicas,
+        perseguição policial e jurídica, destruição de empresas privadas
+        estratégicas para a economia nacional, fim da política habitacional,
+        aprofundamento da terceirização e pejotização e a destruição da
+        legislação trabalhista e previdenciária marcaram um retrocesso histórico
+        nos direitos conquistados.
+      </p>
+    </div>
+
+  </div>
+</section>

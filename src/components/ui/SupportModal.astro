@@ -1,0 +1,203 @@
+<div
+  data-support-modal
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 px-4"
+>
+  <div
+    class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl bg-primary-dark p-10 text-white shadow-2xl"
+  >
+    <button
+      data-close-support
+      class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-red-900 text-xl hover:bg-red-800"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h1 class="mb-4 text-center text-4xl font-extrabold uppercase shadow-md">
+      APOIE NOSSA LUTA
+    </h1>
+
+    <p class="mx-auto mb-10 max-w-3xl text-center text-base text-white/90">
+      Sua contribuição fortalece o movimento pela moradia digna e transforma
+      vidas. Cada doação nos ajuda a continuar combatendo a desigualdade urbana.
+    </p>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- PIX -->
+      <div
+        class="relative overflow-hidden rounded-2xl"
+        style="
+    background: linear-gradient(135deg, #c30000 10%, #8b0000 100%);
+    border: 1px solid rgba(50, 188, 173, 0.3);
+  "
+      >
+        <!-- overlay com BLUR FORTE -->
+        <div class="h-full w-full p-6 backdrop-blur-[24px] bg-white/10">
+          <!-- TÍTULO (SÓ ELE CENTRALIZADO) -->
+          <h3
+            class="mb-6 flex items-center justify-center gap-3 text-lg font-extrabold uppercase"
+          >
+            <i class="fas fa-qrcode"></i> PIX RÁPIDO
+          </h3>
+
+          <!-- CONTEÚDO NORMAL (ESQUERDA) -->
+          <div
+            id="pixKey"
+            class="mb-4 flex cursor-pointer items-center gap-3 rounded-xl
+             bg-emerald-400 px-6 py-4 text-base font-bold text-white
+             transition-all duration-200
+             hover:scale-[1.03]
+             hover:shadow-lg hover:shadow-emerald-400/50"
+            title="Clique para copiar"
+          >
+            <i class="fas fa-key"></i>
+            <span>03.330.820/0001-30</span>
+          </div>
+
+          <p class="mb-4 text-sm text-white">
+            Use o QR Code acima ou copie nossa chave PIX (e-mail)
+          </p>
+
+          <button
+            id="copyPixBtn"
+            class="mb-3 rounded-lg bg-white/20 px-4 py-2
+             text-sm font-bold uppercase transition hover:bg-white/30"
+          >
+            <i class="fas fa-copy mr-1"></i> Copiar Chave PIX
+          </button>
+
+          <div
+            id="copySuccess"
+            class="mb-4 hidden text-sm font-semibold text-emerald-300"
+          >
+            <i class="fas fa-check-circle"></i> Chave PIX copiada com sucesso!
+          </div>
+
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex items-center gap-2">
+              <i class="fas fa-mobile-alt"></i> Abra seu app de banco
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fas fa-qrcode"></i> Escaneie ou cole a chave
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fas fa-hand-holding-usd"></i> Digite o valor
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fas fa-check-circle"></i> Confirme
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TRANSFERÊNCIA -->
+      <div
+        class="rounded-2xl p-6 backdrop-blur-[10px]"
+        style="
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        "
+      >
+        <h3
+          class="mb-6 flex items-center justify-center gap-3 text-lg font-extrabold uppercase"
+        >
+          <i class="fas fa-university"></i> TRANSFERÊNCIA BANCÁRIA
+        </h3>
+
+        <div class="mb-6 rounded-xl bg-white/10 p-4 text-sm">
+          <p class="mb-3 font-semibold text-center">
+            Dados para transferência:
+          </p>
+
+          <div class="mb-2 flex justify-between border-b border-white/20 pb-2">
+            <span>Banco:</span>
+            <span>Caixa Econômica Federal</span>
+          </div>
+
+          <div class="mb-2 flex justify-between border-b border-white/20 pb-2">
+            <span>CNPJ:</span>
+            <span>03.330.820/0001-30</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span>Titular:</span>
+            <span>Salm TO</span>
+          </div>
+        </div>
+
+        <p class="text-center text-sm">
+          Em breve disponível transações recorrentes via cartão de crédito e débito.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="mt-10 rounded-2xl bg-red-900 p-6 text-center text-sm font-semibold"
+    >
+      <h2 class="text-lg pb-4">Seu apoio faz a diferença:</h2>
+      <i class="fas fa-home mr-2 text-yellow-400"></i>
+      Sem anúncios. Sem conteúdo pago. Financiado 100% pelos leitores.
+      <span class="ml-1 underline">Doe hoje mesmo.</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+  function bindSupportModal() {
+    const modal = document.querySelector("[data-support-modal]");
+    const openButtons = document.querySelectorAll("[data-open-support]");
+    const closeButtons = document.querySelectorAll("[data-close-support]");
+
+    if (!modal) return;
+
+    function openModal() {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    openButtons.forEach((btn) => btn.addEventListener("click", openModal));
+    closeButtons.forEach((btn) => btn.addEventListener("click", closeModal));
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  function bindPixCopy() {
+    const btn = document.getElementById("copyPixBtn");
+    const key = document.getElementById("pixKey");
+    const success = document.getElementById("copySuccess");
+
+    if (!btn || !key) return;
+
+    const originalText = btn.innerHTML;
+
+    function copy() {
+      navigator.clipboard.writeText("03.330.820/0001-30");
+      btn.innerHTML = "✔ Copiado";
+      if (success) success.classList.remove("hidden");
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        if (success) success.classList.add("hidden");
+      }, 2000);
+    }
+
+    btn.addEventListener("click", copy);
+    key.addEventListener("click", copy);
+  }
+
+  bindSupportModal();
+  bindPixCopy();
+  document.addEventListener("astro:page-load", () => {
+    bindSupportModal();
+    bindPixCopy();
+  });
+</script>

@@ -1,0 +1,60 @@
+---
+import type { Post } from "@/lib/jornal/types";
+
+const { post } = Astro.props as { post: Post };
+
+const isBoletim = post.type === "boletim";
+
+const accentText = isBoletim ? "text-boletim" : "text-jornal";
+const accentHover = isBoletim ? "hover:text-boletim" : "hover:text-jornal";
+
+function formatDatePtBR(iso: string): string {
+  return new Date(iso).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-bg transition hover:shadow-md">
+  <!-- IMAGEM -->
+  <div class="aspect-[16/9] overflow-hidden bg-neutral-200">
+    <img
+      src={post.coverImage.src}
+      alt={post.title}
+      class="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="flex flex-1 flex-col justify-between p-5">
+    <div>
+      <span class={`mb-2 inline-block text-xs font-bold uppercase ${accentText}`}>
+        {isBoletim ? "Boletim" : "Tribuna"}
+      </span>
+
+      <h3 class="mb-3 text-lg font-extrabold leading-snug line-clamp-2">
+        {post.title}
+      </h3>
+
+      <p class="text-sm leading-relaxed text-text-secondary line-clamp-3">
+        {post.excerpt}
+      </p>
+    </div>
+
+    <div class="mt-5 flex items-center justify-between text-sm">
+      <span class="text-muted">
+        {formatDatePtBR(post.publishedAt)}
+      </span>
+
+      <a
+        href={`/jornal/${post.slug}`}
+        class={`text-xs font-bold uppercase ${accentText} ${accentHover}`}
+      >
+        Leia mais →
+      </a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,58 @@
+---
+import { getActivities } from "../../lib/getActivities";
+
+const activities = (await getActivities()).slice(0, 3);
+---
+
+<section class="bg-bg pb-20">
+  <div class="mx-auto max-w-6xl px-4">
+    <!-- Header -->
+    <header class="mb-12 text-center">
+      <h2 class="font-display text-3xl font-extrabold">Nossa atuação</h2>
+      <div class="mx-auto mt-3 h-1 w-16 bg-primary"></div>
+    </header>
+
+    <!-- Cards -->
+    <div class="grid gap-8 md:grid-cols-3">
+      {
+        activities.map((activity) => (
+          <article class="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-lg">
+            <a href={`/atuacao/${activity.slug}`}>
+              <div class="h-64 overflow-hidden">
+                <img
+                  src={activity.image?.url}
+                  alt={activity.image?.alternativeText || activity.title}
+                  class="h-full w-full object-cover transition hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="p-5">
+                <h3 class="font-display text-lg font-bold">{activity.title}</h3>
+
+                {activity.excerpt && (
+                  <p class="mt-2 text-sm text-text-secondary">
+                    {activity.excerpt}
+                  </p>
+                )}
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Botão ver mais -->
+    <div class="mt-12 px-2">
+      <a
+        href="/atuacao"
+        class="inline-flex items-center gap-1
+           font-semibold text-primary
+           transition hover:underline"
+      >
+        Ver mais
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

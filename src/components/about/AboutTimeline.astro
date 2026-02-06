@@ -1,0 +1,85 @@
+---
+const items = [
+  {
+    side: "left",
+    year: "Década de 1980",
+    text:
+      "Grandes ocupações de áreas e conjuntos habitacionais nos centros urbanos deflagradas em todo o país, criando as condições para a formação de um movimento nacional.",
+  },
+  {
+    side: "right",
+    year: "Julho de 1990",
+    text:
+      "Fundação do MNLM no I Encontro Nacional dos Movimentos de Moradia, com representação de 17 estados. Apoiado pelo Instituto de Arquitetos do Brasil (IAB), Fórum Nacional de Reforma Urbana e pastorais sociais da Igreja Católica.",
+  },
+  {
+    side: "left",
+    year: "1993",
+    text:
+      "Início da atuação do MNLM em Araguaína (TO) com a primeira grande ocupação no Residencial Conjunto Patrocínio.",
+  },
+  {
+    side: "right",
+    year: "2001",
+    text:
+      "Participação ativa na aprovação do Estatuto da Cidade, marco legal da Reforma Urbana no Brasil.",
+  },
+  {
+    side: "left",
+    year: "2005",
+    text:
+      "Participação na criação do Sistema e do Fundo Nacional de Habitação de Interesse Social (SNHIS e FNHIS).",
+  },
+  {
+    side: "right",
+    year: "2009",
+    text:
+      "Consolidação da autogestão habitacional como política pública de Estado através do Minha Casa Minha Vida - Entidades.",
+  },
+  {
+    side: "left",
+    year: "Atualidade",
+    text:
+      "O MNLM está organizado em 22 estados da federação e Distrito Federal, presente em dezenas de cidades brasileiras, continuando a luta pela moradia digna e pela reforma urbana.",
+  },
+];
+---
+
+<section class="bg-bg py-16">
+  <div class="mx-auto max-w-6xl px-4">
+    <header class="text-center">
+      <h2 class="text-3xl font-extrabold text-[var(--color-fg)] md:text-4xl">
+        NOSSA HISTÓRIA
+      </h2>
+      <div class="mx-auto mt-3 h-[3px] w-16 bg-[var(--color-primary)]"></div>
+    </header>
+
+    <div class="relative mx-auto mt-12 max-w-5xl">
+      <!-- linha central -->
+      <div class="absolute left-1/2 top-0 hidden h-full w-[2px] -translate-x-1/2 bg-[var(--color-primary)] md:block"></div>
+
+      <div class="space-y-10">
+        {items.map((it) => (
+          <div class="relative md:grid md:grid-cols-2 md:items-center md:gap-10">
+            <!-- marcador -->
+            <div class="absolute left-1/2 top-6 hidden h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--color-primary)] md:block"></div>
+
+            <div class={it.side === "left" ? "md:pr-10" : "md:col-start-2 md:pl-10"}>
+              <div class="rounded-xl bg-white p-8 text-center shadow-[0_12px_28px_rgba(0,0,0,0.10)]">
+                <div class="text-lg font-extrabold text-[var(--color-primary)]">
+                  {it.year}
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-[var(--color-fg)] md:text-base">
+                  {it.text}
+                </p>
+              </div>
+            </div>
+
+            <!-- vazio do lado oposto no desktop -->
+            <div class={it.side === "left" ? "hidden md:block" : "hidden md:block md:col-start-1"}></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

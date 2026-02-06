@@ -1,0 +1,48 @@
+---
+const principles = [
+  { title: "ORGANIZAÇÃO POPULAR", icon: "users", text: "Acreditamos na força da organização popular como instrumento fundamental de luta e transformação social. Trabalhamos para articular e unificar as lutas das populações excluídas do direito à cidade em todo o território nacional." },
+  { title: "AUTONOMIA", icon: "gavel", text: "Defendemos a autonomia dos movimentos sociais frente aos partidos políticos, governos e instituições. Nossa ação é guiada pelos interesses da classe trabalhadora e das populações excluídas, não por interesses eleitorais ou institucionais." },
+  { title: "FORMAÇÃO POLÍTICA", icon: "book", text: "Investimos na formação política permanente de nossa militância, compreendendo que a consciência de classe é fundamental para a construção de poder popular e para a transformação social radical." },
+  { title: "LUTA DE CLASSES", icon: "fist", text: "Reconhecemos que a questão urbana e a luta pela moradia são expressões da luta de classes. Combatemos o capitalismo e defendemos a construção de uma sociedade socialista, sem explorados e exploradores." },
+  { title: "DIREITO À CIDADE", icon: "city", text: "Lutamos pelo direito à cidade como direito coletivo, que inclui acesso à moradia digna, transporte público, saneamento básico, equipamentos urbanos e participação nas decisões sobre o espaço urbano." },
+  { title: "MORADIA DIGNA", icon: "home", text: "Defendemos a moradia digna como direito humano fundamental e social. Combatemos a especulação imobiliária e lutamos por políticas públicas que garantam acesso universal à moradia adequada." },
+];
+
+const Icon = (name: string) => {
+  const base = `class="h-10 w-10" fill="none" stroke="currentColor" stroke-width="2"`;
+  if (name === "users") return `<svg viewBox="0 0 24 24" ${base}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+  if (name === "gavel") return `<svg viewBox="0 0 24 24" ${base}><path d="M14 13l-9 9"/><path d="M16 11l6-6"/><path d="M14 7l3 3"/><path d="M12 9l3 3"/><path d="M3 21l3-3"/></svg>`;
+  if (name === "book") return `<svg viewBox="0 0 24 24" ${base}><path d="M4 19a2 2 0 0 0 2 2h14"/><path d="M6 2h14v18H6a2 2 0 0 0-2 2V4a2 2 0 0 1 2-2z"/></svg>`;
+  if (name === "fist") return `<svg viewBox="0 0 24 24" ${base}><path d="M6 12V9a2 2 0 0 1 2-2h1"/><path d="M9 7V6a2 2 0 0 1 2-2h1"/><path d="M12 4h1a2 2 0 0 1 2 2v1"/><path d="M15 7h1a2 2 0 0 1 2 2v3"/><path d="M6 12v6a2 2 0 0 0 2 2h6a4 4 0 0 0 4-4v-4"/></svg>`;
+  if (name === "city") return `<svg viewBox="0 0 24 24" ${base}><path d="M3 21h18"/><path d="M6 21V7l6-4v18"/><path d="M18 21V11l-6-4"/><path d="M9 9h.01"/><path d="M9 13h.01"/><path d="M9 17h.01"/></svg>`;
+  if (name === "home") return `<svg viewBox="0 0 24 24" ${base}><path d="M3 10l9-7 9 7"/><path d="M9 22V12h6v10"/></svg>`;
+  return `<svg viewBox="0 0 24 24" ${base}><circle cx="12" cy="12" r="9"/></svg>`;
+};
+---
+
+<section class="bg-bg py-16">
+  <div class="mx-auto max-w-6xl px-4">
+    <header class="text-center">
+      <h2 class="text-3xl font-extrabold text-[var(--color-fg)] md:text-4xl">
+        NOSSOS PRINCÍPIOS FUNDAMENTAIS
+      </h2>
+      <div class="mx-auto mt-3 h-[3px] w-16 bg-[var(--color-primary)]"></div>
+    </header>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-3">
+      {principles.map((p) => (
+        <article class="rounded-xl border border-[var(--color-border)] bg-white p-10 text-center shadow-[0_12px_28px_rgba(0,0,0,0.10)]">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center text-[var(--color-primary)]">
+            <Fragment set:html={Icon(p.icon)} />
+          </div>
+          <h3 class="mt-6 text-base font-extrabold uppercase text-[var(--color-fg)]">
+            {p.title}
+          </h3>
+          <p class="mt-6 text-sm leading-relaxed text-[var(--color-muted)] md:text-base">
+            {p.text}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

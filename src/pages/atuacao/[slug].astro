@@ -1,0 +1,54 @@
+---
+export const prerender = false;
+
+import HomeAtuacao from "../../components/home/HomeAtuacao.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getActivities } from "../../lib/getActivities";
+
+const { slug } = Astro.params;
+const activities = await getActivities();
+const activity = activities.find((a) => a.slug === slug);
+
+if (!activity) {
+  return Astro.redirect("/atuacao");
+}
+---
+
+<BaseLayout title={`${activity.title} | MNLM`}>
+  <article class="bg-bg py-20">
+    <div class="mx-auto max-w-3xl px-4">
+
+      <!-- TÍTULO -->
+      <header class="mb-6">
+        <h1 class="font-display text-3xl font-extrabold leading-tight">
+          {activity.title}
+        </h1>
+      </header>
+
+      <!-- PRIMEIRO PARÁGRAFO (LEAD) -->
+      <p class="mb-10 text-lg text-text-secondary leading-relaxed">
+        {activity.lead}
+      </p>
+
+      <!-- IMAGEM PRINCIPAL (TAMANHO LIMITADO) -->
+      {activity.image && (
+        <div class="mb-12 overflow-hidden rounded-xl">
+          <img
+            src={activity.image.url}
+            alt={activity.image.alternativeText || activity.title}
+            class="w-full max-h-[420px] object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+
+      <!-- RESTO DO TEXTO -->
+      <div
+        class="prose"
+        set:html={activity.content}
+      />
+    </div>
+  </article>
+
+  <HomeAtuacao />
+</BaseLayout>

@@ -1,0 +1,118 @@
+---
+const email = "mnlmbrasil@gmail.com";
+const phoneDisplay = "(61) 9594-1288";
+const phoneHref = "+556195941288";
+
+const addressLines = [
+  "Rua da Luta Pela Moradia, 123",
+  "Centro, São Paulo - SP",
+  "CEP: 01001-000",
+];
+
+const hoursLines = [
+  "Segunda a Sexta: 9h às 18h",
+  "Sábado: 9h às 13h",
+  "Domingo: Fechado",
+];
+---
+
+<section class="w-full rounded-2xl bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.08)] md:w-1/2">
+  <!-- Title -->
+  <header class="text-center">
+    <h2 class="text-2xl font-extrabold uppercase tracking-wide text-gray-900">
+      FALE CONOSCO
+    </h2>
+    <div class="mx-auto mt-3 h-1 w-16 rounded-full bg-red-700"></div>
+  </header>
+
+  <div class="mt-10">
+    <h3 class="text-lg font-bold text-gray-900">Contato Nacional</h3>
+
+    <div class="mt-8 space-y-8">
+      <!-- Email -->
+      <div class="flex gap-4">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-700 text-white">
+          <i class="fas fa-envelope text-lg"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-gray-900">E-mail Nacional</div>
+          <div class="text-sm text-gray-700">{email}</div>
+          <a href={`mailto:${email}`} class="text-sm font-bold text-red-700 hover:underline">
+            Enviar e-mail
+          </a>
+          <div class="mt-6 h-px w-full bg-gray-200"></div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="flex gap-4">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-700 text-white">
+          <i class="fas fa-phone text-lg"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-gray-900">Telefone Nacional</div>
+          <div class="text-sm text-gray-700">{phoneDisplay}</div>
+          <a href={`tel:${phoneHref}`} class="text-sm font-bold text-red-700 hover:underline">
+            Ligar agora
+          </a>
+          <div class="mt-6 h-px w-full bg-gray-200"></div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="flex gap-4">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-700 text-white">
+          <i class="fas fa-map-marker-alt text-lg"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-gray-900">Endereço Nacional</div>
+          <div class="mt-1 space-y-1 text-sm text-gray-700">
+            {addressLines.map((l) => <div>{l}</div>)}
+          </div>
+          <div class="mt-6 h-px w-full bg-gray-200"></div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Social -->
+    <div class="mt-12">
+      <h3 class="text-lg font-bold text-gray-900">Siga-nos nas Redes Sociais</h3>
+      <p class="mt-2 text-sm text-gray-700">
+        Acompanhe nossas lutas, notícias e mobilizações:
+      </p>
+
+      <div class="mt-6 grid grid-cols-4 gap-6">
+        <a href="https://www.facebook.com/mnlmbrasil" class="flex flex-col items-center gap-2 text-center">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] text-white shadow-lg">
+            <i class="fab fa-facebook-f text-lg"></i>
+          </div>
+          <span class="text-sm font-semibold text-gray-900">Facebook</span>
+        </a>
+
+        <a href="https://www.instagram.com/tribunadomovimento/" class="flex flex-col items-center gap-2 text-center">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg
+            bg-[radial-gradient(circle_at_30%_30%,#feda75,#d62976,#962fbf,#4f5bd5)]">
+            <i class="fab fa-instagram text-lg"></i>
+          </div>
+          <span class="text-sm font-semibold text-gray-900">Instagram</span>
+        </a>
+
+        <a href="https://x.com/mnlmbrasil1990" class="flex flex-col items-center gap-2 text-center">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#1DA1F2] text-white shadow-lg">
+            <i class="fab fa-twitter text-lg"></i>
+          </div>
+          <span class="text-sm font-semibold text-gray-900">Twitter</span>
+        </a>
+
+        <a href="https://www.youtube.com/@tv.movimento" class="flex flex-col items-center gap-2 text-center">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF0000] text-white shadow-lg">
+            <i class="fab fa-youtube text-lg"></i>
+          </div>
+          <span class="text-sm font-semibold text-gray-900">YouTube</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import hero from "../../assets/hero-mnlm.jpeg";
+---
+
+<section class="px-4 pt-12">
+  <div class="relative mx-auto max-w-6xl overflow-hidden rounded-xl shadow-lg">
+    <!-- IMAGEM RESPONSIVA OTIMIZADA PELO ASTRO -->
+    <Image
+      src={hero}
+      alt="Mobilização do Movimento Nacional de Luta pela Moradia"
+      class="h-[400px] w-full object-cover md:h-[560px]"
+      sizes="100vw"
+      priority
+    />
+
+    <!-- GRADIENTE SOBRE A IMAGEM -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t
+             from-black/75 via-black/40 to-black/20"
+    >
+    </div>
+
+    <!-- CONTEÚDO DO HERO -->
+    <div
+      class="absolute inset-0 flex flex-col justify-end
+             px-6 pb-8 md:px-12 md:pb-12"
+    >
+      <div class="max-w-3xl">
+        <h1
+          class="font-display title-float
+         text-3xl font-extrabold text-white
+         md:text-5xl"
+        >
+          LUTA PELA MORADIA É LUTA POR DIREITOS
+        </h1>
+
+        <p class="mt-4 text-base text-white/95 md:text-[20px]">
+          O Movimento Nacional de Luta pela Moradia atua em defesa do direito à
+          cidade, à moradia digna e à justiça social em todo o Brasil.
+        </p>
+
+        <button
+          data-open-support
+          class="font-display mt-6 w-full rounded-md bg-primary py-4 text-sm md:text-lg tracking-wide text-white transition hover:opacity-90 md:w-auto md:px-10"
+        >
+          APOIE NOSSA CAUSA
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

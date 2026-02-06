@@ -1,0 +1,36 @@
+---
+import { getLatestNews } from "@/lib/jornal/getPosts";
+import HomePostCard from "./HomePostCard.astro";
+
+const posts = await getLatestNews(3);
+---
+
+<section class="py-20 bg-bg">
+  <div class="mx-auto max-w-6xl px-6">
+    <!-- Header -->
+    <div class="mb-10 flex items-end justify-between gap-6">
+      <div>
+        <h2 class="text-3xl font-extrabold uppercase">
+          Últimas Notícias
+        </h2>
+        <p class="mt-2 text-text-secondary">
+          Jornal e boletins recentes do MNLM
+        </p>
+      </div>
+
+      <a
+        href="/jornal"
+        class="text-sm font-bold uppercase text-jornal hover:underline"
+      >
+        Ver todas →
+      </a>
+    </div>
+
+    <!-- Grid 3 colunas -->
+    <div class="grid gap-8 md:grid-cols-3">
+      {posts.map((post) => (
+        <HomePostCard post={post} />
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaGallery from "@/components/midia/MediaGallery.jsx";
+---
+
+<BaseLayout title="Galeria de Mídias | MNLM">
+  <main class="py-16">
+    <div class="mx-auto max-w-5xl px-6">
+      <MediaGallery client:load />
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-display:
+    "Franklin Gothic Heavy",
+    "Franklin Gothic Medium",
+    "Franklin Gothic",
+    Arial,
+    sans-serif;
+
+  --font-body: Arial, sans-serif;
+
+  /* Colors (Tailwind-friendly) */
+  --color-primary: #c30000;
+  /* vermelho-ferrari */
+  --color-primary-dark: #a00000;
+  /* vermelho-escuro */
+
+  --color-bg: #ffffff;
+  /* fundo-claro */
+  --color-fg: #222222;
+  /* texto-escuro */
+  --color-muted: #666666;
+  /* cinza-medio */
+
+  --color-border: #e0e0e0;
+  /* borda-clara */
+
+  --color-pix: #32bcad;
+  /* verde-pix */
+  --color-pix-dark: #28998c;
+
+  /* Layout */
+  --header-height: 120px;
+  --color-cinza: #ccc
+
+  /* Jornal / Tribuna (vermelho) */
+  --color-jornal: #c30000;
+  --color-jornal-dark: #a00000;
+  --color-jornal-bg: #fdecec;
+
+  /* Boletim (azul) */
+  --color-boletim: #0066cc;
+  --color-boletim-dark: #004c99;
+  --color-boletim-bg: #eaf2fb;
+
+  /* Autores (roxo) */
+  --color-autor: #8a2be2;
+  --color-autor-dark: #6f1fb8;
+  --color-autor-bg: #f3eaff;
+}
+
+@layer utilities {
+  .title-float {
+    text-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.45),
+      0 8px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  @keyframes titleFloat {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-6px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+
+html,
+body {
+  font-family: theme(--font-body);
+  color: theme(--color-fg);
+  background: theme(--color-bg);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: theme(--font-display);
+  font-weight: 800;
+}
+
+a,
+ul,
+ol {
+  list-style: none;
+}
+
+a:hover,
+button:hover {
+  cursor: pointer;
+}
+
+.card-hover {
+  transition: transform var(--transicao-media), box-shadow var(--transicao-media);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px var(--card-hover-shadow);
+}

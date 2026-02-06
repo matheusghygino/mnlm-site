@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import whoImg from "@/assets/about/who.jpeg";
+---
+
+<section class="mx-auto mt-24 max-w-6xl px-4">
+  <h2 class="text-center font-display text-3xl font-extrabold">
+    QUEM SOMOS
+  </h2>
+  <div class="mx-auto mt-2 h-1 w-20 bg-[var(--color-primary)]"></div>
+
+  <Image
+    src={whoImg}
+    alt="Quem somos"
+    class="mt-10 w-full rounded-xl shadow-lg h-[420px]"
+  />
+
+  <blockquote
+    class="mt-10 border-l-4 border-[var(--color-primary)] pl-6 text-xl font-extrabold text-[var(--color-primary)]"
+  >
+    Somos um movimento social que luta pelo direito à moradia digna e pelo acesso
+    à cidade para todas as pessoas.
+  </blockquote>
+
+  <div class="mt-6 space-y-4 text-base leading-relaxed text-text-secondary">
+    <p>
+      O Movimento Nacional de Luta pela Moradia (MNLM) é uma organização popular, autônoma e classista que atua em todo o território nacional na defesa do direito à moradia digna, à reforma urbana e à justiça social. Fundado em julho de 1990, durante o I Encontro Nacional dos Movimentos de Moradia, com representação de 17 estados, o MNLM materializou-se depois das grandes ocupações de áreas e conjuntos habitacionais nos centros urbanos, deflagradas principalmente na década de 80.
+    </p>
+    <p>
+      Entre vários organismos, teve como apoiadores o Instituto de Arquitetos do Brasil (IAB), Fórum Nacional de Reforma Urbana e diversas outras organizações ligadas às pastorais sociais da Igreja Católica.
+    </p>
+    <p>
+      Nosso movimento reúne trabalhadores e trabalhadoras urbanos, moradores de favelas, ocupações, cortiços, conjuntos habitacionais precários e todos aqueles que são excluídos do direito à cidade. Acreditamos que a moradia é um direito humano fundamental e que a luta por esse direito é parte inseparável da luta por uma sociedade mais justa e igualitária.
+    </p>
+    <p>
+      Atuamos através da organização popular, da formação política, da mobilização social e da pressão sobre os poderes públicos. Nossa atuação se dá em várias frentes: desde a assessoria jurídica a famílias ameaçadas de despejo até a articulação política em âmbito nacional para a implementação de políticas públicas de habitação popular.
+    </p>
+  </div>
+  <div class="py-8 text-center">
+    <a href="/contato" class="py-4 px-10 rounded-md  bg-primary text-white hover:bg-primary-dark">JUNTE-SE À LUTA</a>
+  </div>
+</section>
