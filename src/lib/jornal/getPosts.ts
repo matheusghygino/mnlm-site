@@ -1,10 +1,33 @@
 // src/lib/jornal/getPosts.ts
 import { postsMock } from "./posts.mock";
-import type { Post } from "./types";
+import type { Post, ContentBlock } from "./types";
 import { calculateReadingTimeFromContent } from "./readingTime";
 
 const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
+
+/* =========================
+   HELPERS
+========================= */
+
+function withAbsoluteImageUrl(image: any) {
+  if (!image?.url) return image;
+
+  if (image.url.startsWith("http")) return image;
+
+  return {
+    ...image,
+    url: `${STRAPI_URL}${image.url}`,
+  };
+}
+
+function sort(posts: Post[]): Post[] {
+  return posts.slice().sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() -
+      new Date(a.publishedAt).getTime(),
+  );
+}
 
 /* =========================
    FETCH ALL POSTS
@@ -36,8 +59,9 @@ export async function getPosts(): Promise<Post[]> {
     const json = await res.json();
 
     return sort(json.data.map(normalizePost));
-  } catch {
-    // fallback seguro
+  } catch (err) {
+    console.warn("⚠️ Strapi indisponível, usando mocks", err);
+
     return sort(
       postsMock.map((p) => ({
         ...p,
@@ -56,9 +80,10 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   return posts.find((p) => p.slug === slug);
 }
 
-/* =====================
-  Últimas notícias
-======================= */
+/* =========================
+   ÚLTIMAS NOTÍCIAS
+========================= */
+
 export async function getLatestNews(limit = 3): Promise<Post[]> {
   const posts = await getPosts();
 
@@ -68,49 +93,45 @@ export async function getLatestNews(limit = 3): Promise<Post[]> {
 }
 
 /* =========================
-   HELPERS
-========================= */
-
-function sort(posts: Post[]): Post[] {
-  return posts.slice().sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() -
-      new Date(a.publishedAt).getTime(),
-  );
-}
-
-/* =========================
    NORMALIZER (STRAPI → FRONT)
 ========================= */
 
 function normalizePost(item: any): Post {
   const a = item.attributes;
 
-  const content = a.content.map(normalizeBlock);
+  const content = a.content
+    .map(normalizeBlock)
+    .filter(Boolean) as ContentBlock[];
 
   return {
     id: item.id,
     slug: a.slug,
     type: a.type,
+
     title: a.title,
     excerpt: a.excerpt,
-    author: a.author,
+
+    author: a.Author,
     publishedAt: a.publishedAt,
+
     readingTime: calculateReadingTimeFromContent(content),
-    tags: a.tags ?? [],
-    coverImage: a.coverImage?.data?.attributes,
-    coverCaption: a.coverCaption,
-    coverCredit: a.coverCredit,
+
+    tags: a.Tags ?? [],
+
+    coverImage: withAbsoluteImageUrl(
+      a.coverImage?.data?.attributes,
+    ),
+
     content,
   };
 }
 
-function normalizeBlock(block: any) {
+function normalizeBlock(block: any): ContentBlock | null {
   switch (block.__component) {
     case "content.paragraph":
       return {
         type: "paragraph",
-        text: block.text,
+        text: block.text, // markdown
       };
 
     case "content.heading":
@@ -130,10 +151,14 @@ function normalizeBlock(block: any) {
     case "content.image":
       return {
         type: "image",
-        image: block.image?.data?.attributes,
+        image: withAbsoluteImageUrl(
+          block.Image?.data?.attributes,
+        ),
         caption: block.caption,
-        credit: block.credit,
         align: block.align,
       };
+
+    default:
+      return null;
   }
 }

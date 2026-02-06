@@ -2,7 +2,7 @@
 import { getLatestNews } from "@/lib/jornal/getPosts";
 import HomePostCard from "./HomePostCard.astro";
 
-const posts = await getLatestNews(3);
+const { posts } = Astro.props;
 ---
 
 <section class="py-20 bg-bg">

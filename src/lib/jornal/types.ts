@@ -15,7 +15,7 @@ export type ContentBlock =
 
 export interface ParagraphBlock {
   type: "paragraph";
-  text: string;
+  text: string; // markdown
 }
 
 export interface HeadingBlock {
@@ -34,8 +34,7 @@ export interface ImageBlock {
   type: "image";
   image: ImageMetadata;
   caption?: string;
-  credit?: string;
-  align?: "center" | "left" | "right";
+  align?: "left" | "center" | "right";
 }
 
 /* =========================

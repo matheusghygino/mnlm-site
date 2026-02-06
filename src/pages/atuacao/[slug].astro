@@ -1,17 +1,18 @@
 ---
-export const prerender = false;
-
-import HomeAtuacao from "../../components/home/HomeAtuacao.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomeAtuacao from "../../components/home/HomeAtuacao.astro";
 import { getActivities } from "../../lib/getActivities";
 
-const { slug } = Astro.params;
-const activities = await getActivities();
-const activity = activities.find((a) => a.slug === slug);
+export async function getStaticPaths() {
+  const activities = await getActivities();
 
-if (!activity) {
-  return Astro.redirect("/atuacao");
+  return activities.map((activity) => ({
+    params: { slug: activity.slug },
+    props: { activity, activities },
+  }));
 }
+
+const { activity, activities } = Astro.props;
 ---
 
 <BaseLayout title={`${activity.title} | MNLM`}>

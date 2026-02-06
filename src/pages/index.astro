@@ -1,16 +1,27 @@
 ---
-import HomeHero from "../components/home/HomeHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HomeHistory from "../components/home/HomeHistory.astro"
-import HomeAtuacao from "../components/home/HomeAtuacao.astro"
-import HomeMedias from "../components/home/HomeMedias.astro";
 import HomeLatestNews from "@/components/home/HomeLatestNews.astro";
+import HomeAtuacao from "@/components/home/HomeAtuacao.astro";
+import HomeHero from "@/components/home/HomeHero.astro";
+import HomeHistory from "@/components/home/HomeHistory.astro";
+
+import HomeMediasSection from "@/components/home/HomeMedias.astro"; // <-- wrapper
+
+import { getLatestNews } from "@/lib/jornal/getPosts";
+import { getLatestMedias } from "@/lib/midias/media";
+import { getActivities } from "@/lib/getActivities";
+
+const posts = await getLatestNews(3);
+const medias = await getLatestMedias(3);
+const activities = (await getActivities()).slice(0, 3);
 ---
 
 <BaseLayout>
-    <HomeHero />
-    <HomeHistory />
-    <HomeLatestNews />
-    <HomeAtuacao />
-    <HomeMedias />
+  <HomeHero />
+  <HomeHistory />
+
+  <HomeLatestNews posts={posts} />
+  <HomeAtuacao activities={activities} />
+
+  <HomeMediasSection />  <!-- Aqui vem o container + CTA -->
 </BaseLayout>
