@@ -34,14 +34,14 @@ function sort(posts: Post[]): Post[] {
 ========================= */
 
 export async function getPosts(): Promise<Post[]> {
-  // fallback total (sem Strapi)
+  const mockPosts = postsMock.map((p) => ({
+    ...p,
+    readingTime: calculateReadingTimeFromContent(p.content),
+  }));
+
+  // Se não houver Strapi configurado → só mocks
   if (!STRAPI_URL) {
-    return sort(
-      postsMock.map((p) => ({
-        ...p,
-        readingTime: calculateReadingTimeFromContent(p.content),
-      })),
-    );
+    return sort(mockPosts);
   }
 
   try {
@@ -58,16 +58,22 @@ export async function getPosts(): Promise<Post[]> {
 
     const json = await res.json();
 
-    return sort(json.data.map(normalizePost));
+    const strapiPosts = json.data.map(normalizePost);
+
+    // 🔥 Junta os dois
+    const merged = [...strapiPosts, ...mockPosts];
+
+    // 🔥 Remove duplicados por slug
+    const unique = merged.filter(
+      (post, index, self) =>
+        index === self.findIndex((p) => p.slug === post.slug)
+    );
+
+    return sort(unique);
+
   } catch (err) {
     console.warn("⚠️ Strapi indisponível, usando mocks", err);
-
-    return sort(
-      postsMock.map((p) => ({
-        ...p,
-        readingTime: calculateReadingTimeFromContent(p.content),
-      })),
-    );
+    return sort(mockPosts);
   }
 }
 
