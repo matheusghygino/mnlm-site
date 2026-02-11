@@ -109,28 +109,32 @@ function normalizePost(item: any): Post {
     .map(normalizeBlock)
     .filter(Boolean) as ContentBlock[];
 
+  const img = item.coverImage;
+
+  const coverImage = img
+    ? {
+        src: img.url.startsWith("http") ? img.url : `${STRAPI_URL}${img.url}`,
+        width: img.width,
+        height: img.height,
+        alt: img.alternativeText ?? item.title,
+      }
+    : (null as any);
+
   return {
     id: item.id,
     slug: item.slug,
     type: item.type,
-
     title: item.title,
     excerpt: item.excerpt,
-
     author: item.author,
     publishedAt: item.publishedAt,
-
     readingTime: calculateReadingTimeFromContent(content),
-
     tags: item.tags ?? [],
-
-    coverImage: item.coverImage
-      ? withAbsoluteImageUrl(item.coverImage)
-      : ({} as any),
-
+    coverImage,          // <-- AGORA TEM .src
     content,
   };
 }
+
 
 
 

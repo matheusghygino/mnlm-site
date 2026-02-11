@@ -1,11 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 import { getPosts } from "../../lib/jornal/getPosts";
 import PostContent from "../../components/jornal/PostContent.astro";
 import JournalTabsNav from "../../components/jornal/JornalTabsNav";
 import type { JournalTab } from "../../lib/jornal/types";
-
 
 /* =========================
    STATIC PATHS (CORRETO)
@@ -13,40 +11,29 @@ import type { JournalTab } from "../../lib/jornal/types";
 export async function getStaticPaths() {
   const posts = await getPosts();
 
-
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post, posts },
   }));
 }
 
-
 /* =========================
    DATA (BUILD TIME)
 ========================= */
 const { post, posts } = Astro.props;
 
-
 if (!post) {
   throw new Error("Post não encontrado");
 }
-
 
 /* =========================
    HELPERS
 ========================= */
 const isBoletim = post.type === "boletim";
 
+const accentColor = isBoletim ? "var(--color-boletim)" : "var(--color-jornal)";
 
-const accentColor = isBoletim
-  ? "var(--color-boletim)"
-  : "var(--color-jornal)";
-
-
-const accentBg = isBoletim
-  ? "rgba(0,102,204,0.12)"
-  : "rgba(195,0,0,0.12)";
-
+const accentBg = isBoletim ? "rgba(0,102,204,0.12)" : "rgba(195,0,0,0.12)";
 
 function formatDatePtBR(iso: string): string {
   return new Date(iso).toLocaleDateString("pt-BR", {
@@ -57,7 +44,6 @@ function formatDatePtBR(iso: string): string {
   });
 }
 
-
 /* =========================
    NAVIGATION
 ========================= */
@@ -65,40 +51,26 @@ const sameTypePosts = posts
   .filter((p) => p.type === post.type)
   .sort(
     (a, b) =>
-      new Date(b.publishedAt).getTime() -
-      new Date(a.publishedAt).getTime(),
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 
-
-const currentIndex = sameTypePosts.findIndex(
-  (p) => p.slug === post.slug,
-);
-
+const currentIndex = sameTypePosts.findIndex((p) => p.slug === post.slug);
 
 const previousPost =
   currentIndex < sameTypePosts.length - 1
     ? sameTypePosts[currentIndex + 1]
     : null;
 
-
-const nextPost =
-  currentIndex > 0
-    ? sameTypePosts[currentIndex - 1]
-    : null;
-
+const nextPost = currentIndex > 0 ? sameTypePosts[currentIndex - 1] : null;
 
 const backHash = post.type === "boletim" ? "boletim" : "tribuna";
 
-
-const activeTab: JournalTab =
-  post.type === "boletim" ? "boletim" : "tribuna";
+const activeTab: JournalTab = post.type === "boletim" ? "boletim" : "tribuna";
 ---
-
 
 <BaseLayout title={`${post.title} | MNLM`}>
   <main class="bg-bg py-16">
     <JournalTabsNav active={activeTab} />
-
 
     <article
       class="relative mx-auto mt-8 max-w-3xl rounded-2xl bg-card-bg border-border px-4 py-8 shadow-sm md:px-8 md:py-10"
@@ -112,64 +84,68 @@ const activeTab: JournalTab =
         {isBoletim ? "BOLETIM" : "JORNAL"}
       </span>
 
-
       <p class="mt-4 text-sm font-mono" style={`color:${accentColor}`}>
         {formatDatePtBR(post.publishedAt)}
       </p>
-
 
       <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-5xl">
         {post.title}
       </h1>
 
-
-      <p class="mt-6 text-base leading-relaxed text-text-secondary text-justify">
+      <p
+        class="mt-6 text-base leading-relaxed text-text-secondary text-justify"
+      >
         {post.excerpt}
       </p>
 
-
       <div class="mt-6 flex flex-wrap items-center gap-4 text-sm">
         <span>{post.readingTime} de leitura</span>
-        <span class="rounded-full bg-[var(--color-autor-bg)] px-4 py-1 font-semibold text-[var(--color-autor)]">
+        <span
+          class="rounded-full bg-[var(--color-autor-bg)] px-4 py-1 font-semibold text-[var(--color-autor)]"
+        >
           👤 {post.author}
         </span>
       </div>
 
-
-      <figure class="group mt-10 overflow-hidden rounded-xl bg-neutral-100">
-        <Image
-          src={post.coverImage}
-          alt={post.title}
-          widths={[600, 900, 1200]}
-          sizes="(max-width: 768px) 100vw, 768px"
-          format="webp"
-          quality={75}
-          class="w-full"
-        />
-      </figure>
-
+      {
+        post.coverImage && (
+          <figure class="group mt-10 overflow-hidden rounded-xl bg-neutral-100">
+            <img
+              src={post.coverImage.src}
+              alt={post.coverImage.alt ?? post.title}
+              width={post.coverImage.width}
+              height={post.coverImage.height}
+              class="w-full rounded-xl"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )
+      }
 
       <div class="mt-12">
         <PostContent content={post.content} variant={post.type} />
       </div>
 
-
       <nav class="mt-16 flex items-center justify-between border-t pt-8">
-        {previousPost ? (
-          <a href={`/jornal/${previousPost.slug}`}>← Anterior</a>
-        ) : <span />}
-
+        {
+          previousPost ? (
+            <a href={`/jornal/${previousPost.slug}`}>← Anterior</a>
+          ) : (
+            <span />
+          )
+        }
 
         <a href={`/jornal#${backHash}`}>⬚ Ver Todos</a>
 
-
-        {nextPost ? (
-          <a href={`/jornal/${nextPost.slug}`}>Próximo →</a>
-        ) : <span />}
+        {
+          nextPost ? (
+            <a href={`/jornal/${nextPost.slug}`}>Próximo →</a>
+          ) : (
+            <span />
+          )
+        }
       </nav>
     </article>
   </main>
 </BaseLayout>
-
-
-
