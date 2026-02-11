@@ -103,34 +103,27 @@ export async function getLatestNews(limit = 3): Promise<Post[]> {
 ========================= */
 
 function normalizePost(item: any): Post {
-  const a = item.attributes;
-
-  const content = a.content
-    .map(normalizeBlock)
-    .filter(Boolean) as ContentBlock[];
-
   return {
     id: item.id,
-    slug: a.slug,
-    type: a.type,
+    slug: item.slug,
+    type: item.type,
 
-    title: a.title,
-    excerpt: a.excerpt,
+    title: item.title,
+    excerpt: item.excerpt,
 
-    author: a.Author,
-    publishedAt: a.publishedAt,
+    author: item.author,
+    publishedAt: item.publishedAt,
 
-    readingTime: calculateReadingTimeFromContent(content),
+    readingTime: calculateReadingTimeFromContent([]),
 
-    tags: a.Tags ?? [],
+    tags: item.tags ?? [],
 
-    coverImage: withAbsoluteImageUrl(
-      a.coverImage?.data?.attributes,
-    ),
+    coverImage: null,
 
-    content,
+    content: [],
   };
 }
+
 
 function normalizeBlock(block: any): ContentBlock | null {
   switch (block.__component) {
