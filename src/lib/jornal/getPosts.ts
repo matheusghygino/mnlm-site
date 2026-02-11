@@ -3,8 +3,8 @@ import { postsMock } from "./posts.mock";
 import type { Post, ContentBlock } from "./types";
 import { calculateReadingTimeFromContent } from "./readingTime";
 
-  const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
-  const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
+const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
+const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
 
 /* =========================
    HELPERS
@@ -46,7 +46,7 @@ export async function getPosts(): Promise<Post[]> {
 
   try {
     const res = await fetch(
-      `${STRAPI_URL}/api/posts?populate=deep&sort=publishedAt:desc`,
+      `${STRAPI_URL}/api/posts?populate=*&sort=publishedAt:desc`,
       {
         headers: STRAPI_TOKEN
           ? { Authorization: `Bearer ${STRAPI_TOKEN}` }
@@ -105,6 +105,10 @@ export async function getLatestNews(limit = 3): Promise<Post[]> {
 ========================= */
 
 function normalizePost(item: any): Post {
+  const content = (item.content || [])
+    .map(normalizeBlock)
+    .filter(Boolean) as ContentBlock[];
+
   return {
     id: item.id,
     slug: item.slug,
@@ -116,15 +120,18 @@ function normalizePost(item: any): Post {
     author: item.author,
     publishedAt: item.publishedAt,
 
-    readingTime: calculateReadingTimeFromContent([]),
+    readingTime: calculateReadingTimeFromContent(content),
 
     tags: item.tags ?? [],
 
-    coverImage: {} as ImageMetadata,
+    coverImage: item.coverImage
+      ? withAbsoluteImageUrl(item.coverImage)
+      : ({} as any),
 
-    content: [],
+    content,
   };
 }
+
 
 
 function normalizeBlock(block: any): ContentBlock | null {
