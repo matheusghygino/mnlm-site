@@ -3,8 +3,8 @@ import { postsMock } from "./posts.mock";
 import type { Post, ContentBlock } from "./types";
 import { calculateReadingTimeFromContent } from "./readingTime";
 
-const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
-const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
+  const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
+  const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
 
 /* =========================
    HELPERS

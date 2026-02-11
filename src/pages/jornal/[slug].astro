@@ -6,11 +6,13 @@ import PostContent from "../../components/jornal/PostContent.astro";
 import JournalTabsNav from "../../components/jornal/JornalTabsNav";
 import type { JournalTab } from "../../lib/jornal/types";
 
+
 /* =========================
    STATIC PATHS (CORRETO)
 ========================= */
 export async function getStaticPaths() {
   const posts = await getPosts();
+
 
   return posts.map((post) => ({
     params: { slug: post.slug },
@@ -18,27 +20,33 @@ export async function getStaticPaths() {
   }));
 }
 
+
 /* =========================
    DATA (BUILD TIME)
 ========================= */
 const { post, posts } = Astro.props;
 
+
 if (!post) {
   throw new Error("Post não encontrado");
 }
+
 
 /* =========================
    HELPERS
 ========================= */
 const isBoletim = post.type === "boletim";
 
+
 const accentColor = isBoletim
   ? "var(--color-boletim)"
   : "var(--color-jornal)";
 
+
 const accentBg = isBoletim
   ? "rgba(0,102,204,0.12)"
   : "rgba(195,0,0,0.12)";
+
 
 function formatDatePtBR(iso: string): string {
   return new Date(iso).toLocaleDateString("pt-BR", {
@@ -48,6 +56,7 @@ function formatDatePtBR(iso: string): string {
     year: "numeric",
   });
 }
+
 
 /* =========================
    NAVIGATION
@@ -60,29 +69,36 @@ const sameTypePosts = posts
       new Date(a.publishedAt).getTime(),
   );
 
+
 const currentIndex = sameTypePosts.findIndex(
   (p) => p.slug === post.slug,
 );
+
 
 const previousPost =
   currentIndex < sameTypePosts.length - 1
     ? sameTypePosts[currentIndex + 1]
     : null;
 
+
 const nextPost =
   currentIndex > 0
     ? sameTypePosts[currentIndex - 1]
     : null;
 
+
 const backHash = post.type === "boletim" ? "boletim" : "tribuna";
+
 
 const activeTab: JournalTab =
   post.type === "boletim" ? "boletim" : "tribuna";
 ---
 
+
 <BaseLayout title={`${post.title} | MNLM`}>
   <main class="bg-bg py-16">
     <JournalTabsNav active={activeTab} />
+
 
     <article
       class="relative mx-auto mt-8 max-w-3xl rounded-2xl bg-card-bg border-border px-4 py-8 shadow-sm md:px-8 md:py-10"
@@ -96,17 +112,21 @@ const activeTab: JournalTab =
         {isBoletim ? "BOLETIM" : "JORNAL"}
       </span>
 
+
       <p class="mt-4 text-sm font-mono" style={`color:${accentColor}`}>
         {formatDatePtBR(post.publishedAt)}
       </p>
+
 
       <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-5xl">
         {post.title}
       </h1>
 
+
       <p class="mt-6 text-base leading-relaxed text-text-secondary text-justify">
         {post.excerpt}
       </p>
+
 
       <div class="mt-6 flex flex-wrap items-center gap-4 text-sm">
         <span>{post.readingTime} de leitura</span>
@@ -114,6 +134,7 @@ const activeTab: JournalTab =
           👤 {post.author}
         </span>
       </div>
+
 
       <figure class="group mt-10 overflow-hidden rounded-xl bg-neutral-100">
         <Image
@@ -127,16 +148,20 @@ const activeTab: JournalTab =
         />
       </figure>
 
+
       <div class="mt-12">
         <PostContent content={post.content} variant={post.type} />
       </div>
+
 
       <nav class="mt-16 flex items-center justify-between border-t pt-8">
         {previousPost ? (
           <a href={`/jornal/${previousPost.slug}`}>← Anterior</a>
         ) : <span />}
 
+
         <a href={`/jornal#${backHash}`}>⬚ Ver Todos</a>
+
 
         {nextPost ? (
           <a href={`/jornal/${nextPost.slug}`}>Próximo →</a>
@@ -145,3 +170,6 @@ const activeTab: JournalTab =
     </article>
   </main>
 </BaseLayout>
+
+
+
