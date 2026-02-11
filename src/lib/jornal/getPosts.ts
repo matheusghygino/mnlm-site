@@ -58,6 +58,8 @@ export async function getPosts(): Promise<Post[]> {
 
     const json = await res.json();
 
+    console.log("STRAPI DATA:", JSON.stringify(json.data, null, 2));
+
     const strapiPosts = json.data.map(normalizePost);
 
     // 🔥 Junta os dois
