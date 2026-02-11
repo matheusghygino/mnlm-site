@@ -120,7 +120,7 @@ function normalizePost(item: any): Post {
 
     tags: item.tags ?? [],
 
-    coverImage: null,
+    coverImage: {} as ImageMetadata,
 
     content: [],
   };
